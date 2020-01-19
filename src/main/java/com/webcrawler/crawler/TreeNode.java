@@ -66,7 +66,7 @@ public class TreeNode<T> implements Iterable<TreeNode<T>> {
 
     @Override
     public String toString() {
-        return data.toString() +
+        return data.toString() + " "+
                 children.toString();
     }
 
