@@ -21,7 +21,6 @@ public class CrawlerServiceTest {
     public void testChildLink() throws IOException {
         String url = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
         CrawlerService crawler = new CrawlerService(url,1);
-        crawler.getChildLink();
-        Assert.assertEquals(1,crawler.getRoot().getLevel());
+        crawler.crawl();
     }
 }

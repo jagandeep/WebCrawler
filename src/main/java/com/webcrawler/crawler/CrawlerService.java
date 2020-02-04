@@ -1,37 +1,48 @@
 package com.webcrawler.crawler;
 
-import java.io.IOException;
+import com.webcrawler.crawler.model.Detail;
+import com.webcrawler.crawler.model.Example;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class CrawlerService {
     private String url;
     private Integer depth;
-    private TreeNode<WebPage> root;
+    private Queue<WebPage> pages;
 
     public CrawlerService(String url, Integer depth){
         this.url = url;
         this.depth = depth;
-        root = new TreeNode<WebPage>(new WebPage(url));
-    }
-    public void getChildLink() throws IOException {
-        createChildLink(this.root,this.depth);
     }
 
-    private void createChildLink(TreeNode<WebPage> root, Integer depth) throws IOException {
-        if ( depth <= 0) return ;
-        WebPage page = root.getData();
-        for(WebPage p : page.findChildLinks()){
-            TreeNode<WebPage> childPage = root.addChild(p);
-            createChildLink(childPage,depth-1);
+    public Example crawl() throws IOException {
+        pages = new LinkedList<WebPage>();
+        pages.add(new WebPage(url));
+        WebPage page = pages.poll();
+        while(page != null){
+            for(WebPage p: page.findChildLinks()){
+                pages.add(p);
+            }
+            page = pages.poll();
         }
-    }
-    protected TreeNode<WebPage> getRoot(){
-        return this.root;
+        return transformPage(pages);
     }
 
-    @Override
-    public String toString(){
-        return root.toString() ;
+    private Example transformPage(Queue<WebPage> pages) throws IOException {
+        Example example = new Example();
+        List<Detail> details = new ArrayList<>();
+        Detail detail = null;
+        for(WebPage p : pages){
+            detail = new Detail(p.getTitle(),p.getUrl(),p.imageCount());
+            details.add(detail);
+        }
+        example.setDetails(details);
+        return example;
     }
+
 }
 

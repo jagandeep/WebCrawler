@@ -25,6 +25,15 @@ public class WebPage implements java.io.Serializable{
         parse = new ParseWebPage();
     }
 
+    public String getTitle() throws IOException {
+        return parse.getTitle(this.url);
+    }
+
+    public Integer imageCount() throws IOException {
+        return parse.getImageCount(this.url);
+    }
+
+
     public List<WebPage> findChildLinks() throws IOException {
         List<WebPage> webPages = parse.getUrls(this.url);
         return webPages;
