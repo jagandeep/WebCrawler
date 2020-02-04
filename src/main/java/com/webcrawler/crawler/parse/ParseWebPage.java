@@ -1,5 +1,6 @@
-package com.webcrawler.crawler;
+package com.webcrawler.crawler.parse;
 
+import com.webcrawler.crawler.WebPage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

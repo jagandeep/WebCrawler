@@ -3,12 +3,12 @@ package com.webcrawler.crawler;
 import java.io.IOException;
 
 
-public class WebCrawlerService {
+public class CrawlerService {
     private String url;
     private Integer depth;
     private TreeNode<WebPage> root;
 
-    public WebCrawlerService(String url, Integer depth){
+    public CrawlerService(String url, Integer depth){
         this.url = url;
         this.depth = depth;
         root = new TreeNode<WebPage>(new WebPage(url));

@@ -6,11 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
-public class WebCrawlerServiceTest {
+public class CrawlerServiceTest {
 
     @Before
     public void setUp() throws Exception {
@@ -23,7 +20,7 @@ public class WebCrawlerServiceTest {
     @Test
     public void testChildLink() throws IOException {
         String url = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
-        WebCrawlerService crawler = new WebCrawlerService(url,1);
+        CrawlerService crawler = new CrawlerService(url,1);
         crawler.getChildLink();
         Assert.assertEquals(1,crawler.getRoot().getLevel());
     }

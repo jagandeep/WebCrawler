@@ -1,4 +1,6 @@
-package com.webcrawler.crawler;
+package com.webcrawler.crawler.parse;
+
+import com.webcrawler.crawler.WebPage;
 
 import java.io.IOException;
 import java.util.List;

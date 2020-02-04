@@ -1,18 +1,23 @@
 package com.webcrawler.crawler;
 
+import com.webcrawler.crawler.parse.Parse;
+import com.webcrawler.crawler.parse.ParseWebPage;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
+
+@ToString
 public class WebPage implements java.io.Serializable{
+    @Setter  @Getter
     private String url;
-    private Logger logger = LoggerFactory.getLogger(WebPage.class);
-
-
+    private final Logger logger = LoggerFactory.getLogger(WebPage.class);
+    @Setter  @Getter
     private Parse parse;
 
     public WebPage(String url){
@@ -20,40 +25,8 @@ public class WebPage implements java.io.Serializable{
         parse = new ParseWebPage();
     }
 
-    public void setParse(Parse parse) {
-        this.parse = parse;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public List<WebPage> findChildLinks() throws IOException {
         List<WebPage> webPages = parse.getUrls(this.url);
         return webPages;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WebPage webPage = (WebPage) o;
-        return url.equals(webPage.url);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(url);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "url='" + url +
-                '}';
     }
 }

@@ -1,24 +1,21 @@
 package com.webcrawler.crawler;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class TreeNode<T> implements Iterable<TreeNode<T>> {
+    @Setter@Getter
     public T data;
     public TreeNode<T> parent;
+    @Getter
     public List<TreeNode<T>> children = null;
 
     public boolean isRoot() {
         return parent == null;
-    }
-
-    public T getData(){
-        return this.data;
-    }
-
-    public List<TreeNode<T>> getChildren() {
-        return children;
     }
 
     public boolean isLeaf() {
@@ -62,12 +59,6 @@ public class TreeNode<T> implements Iterable<TreeNode<T>> {
                 return element;
         }
         return null;
-    }
-
-    @Override
-    public String toString() {
-        return data.toString() + " "+
-                children.toString();
     }
 
     @Override

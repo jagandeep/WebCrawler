@@ -1,5 +1,7 @@
 package com.webcrawler.crawler;
 
+import com.webcrawler.crawler.parse.Parse;
+import com.webcrawler.crawler.parse.ParseWebPage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
