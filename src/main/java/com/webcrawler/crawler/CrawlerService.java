@@ -1,7 +1,10 @@
 package com.webcrawler.crawler;
 
+import com.webcrawler.crawler.controller.CrawlController;
 import com.webcrawler.crawler.model.Detail;
 import com.webcrawler.crawler.model.Example;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +13,10 @@ import java.util.List;
 import java.util.Queue;
 
 public class CrawlerService {
+    private Logger logger = LoggerFactory.getLogger(CrawlerService.class);
     private String url;
     private Integer depth;
-    private Queue<WebPage> pages;
+    private Queue<WebPage> webPages;
 
     public CrawlerService(String url, Integer depth){
         this.url = url;
@@ -20,24 +24,35 @@ public class CrawlerService {
     }
 
     public Example crawl() throws IOException {
-        pages = new LinkedList<WebPage>();
-        pages.add(new WebPage(url));
-        WebPage page = pages.poll();
-        while(page != null){
+        webPages = new LinkedList<WebPage>();
+        Queue<WebPage> processedWebPages = new LinkedList<WebPage>();
+        WebPage rootPage = new WebPage(url);
+        rootPage.setDepth(0);
+        webPages.add(rootPage);
+        WebPage page = webPages.poll();
+        processedWebPages.add(page);
+        while(page != null && page.getDepth() < this.depth) {
             for(WebPage p: page.findChildLinks()){
-                pages.add(p);
+                p.setDepth(page.getDepth()+1);
+                webPages.add(p);
             }
-            page = pages.poll();
+            page = webPages.poll();
+            processedWebPages.add(page);
         }
-        return transformPage(pages);
+        return transformPage(processedWebPages);
     }
 
-    private Example transformPage(Queue<WebPage> pages) throws IOException {
+    private Example transformPage(Queue<WebPage> pages)  {
+        logger.info(String.valueOf(pages));
         Example example = new Example();
         List<Detail> details = new ArrayList<>();
         Detail detail = null;
         for(WebPage p : pages){
-            detail = new Detail(p.getTitle(),p.getUrl(),p.imageCount());
+            try {
+                detail = new Detail(p.getTitle(),p.getUrl(),p.imageCount());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             details.add(detail);
         }
         example.setDetails(details);

@@ -19,6 +19,9 @@ public class WebPage implements java.io.Serializable{
     private final Logger logger = LoggerFactory.getLogger(WebPage.class);
     @Setter  @Getter
     private Parse parse;
+    @Setter @Getter
+    private Integer depth;
+
 
     public WebPage(String url){
         this.url = url;
@@ -38,4 +41,6 @@ public class WebPage implements java.io.Serializable{
         List<WebPage> webPages = parse.getUrls(this.url);
         return webPages;
     }
+
+
 }

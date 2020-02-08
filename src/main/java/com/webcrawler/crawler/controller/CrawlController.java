@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.IOException;
 
 @RestController
@@ -15,8 +14,8 @@ public class CrawlController {
 
     private Logger logger = LoggerFactory.getLogger(CrawlController.class);
 
-    @GetMapping(path="/submit",produces = "application/json")
-    public Example crawlWebPage(@RequestParam String url,
+    @GetMapping(path="/submit")
+    public Example crawlWebPage(@RequestParam(name = "url")  String url,
                                 @RequestParam String depth) throws IOException {
         logger.info("url :" + url);
         logger.info("depth :" + depth);

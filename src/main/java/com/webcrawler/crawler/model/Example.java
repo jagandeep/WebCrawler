@@ -23,4 +23,5 @@ public class Example {
     private String totalImages;
     @JsonProperty("details")
     private List<Detail> details = null;
+
 }
