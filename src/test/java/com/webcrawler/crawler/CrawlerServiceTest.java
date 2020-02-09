@@ -1,7 +1,7 @@
 package com.webcrawler.crawler;
 
+import com.webcrawler.crawler.model.CrawlerService;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,10 +17,5 @@ public class CrawlerServiceTest {
     public void tearDown() throws Exception {
     }
 
-    @Test
-    public void testChildLink() throws IOException {
-        String url = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
-        CrawlerService crawler = new CrawlerService(url,1);
-        crawler.crawl();
-    }
+
 }

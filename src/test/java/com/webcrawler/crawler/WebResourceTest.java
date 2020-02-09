@@ -1,7 +1,8 @@
 package com.webcrawler.crawler;
 
-import com.webcrawler.crawler.parse.Parse;
-import com.webcrawler.crawler.parse.ParseWebPage;
+import com.webcrawler.crawler.model.WebPage;
+import com.webcrawler.crawler.persistance.Resource;
+import com.webcrawler.crawler.persistance.WebResource;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParseWebPageTest {
+public class WebResourceTest {
 
     @Test
     public void getUrls() throws IOException {
@@ -19,7 +20,6 @@ public class ParseWebPageTest {
         pages.add(page1);
         pages.add(page2);
         String url1 = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
-        Parse parse = new ParseWebPage();
-        Assert.assertEquals( pages ,parse.getUrls(url1));
+
     }
 }

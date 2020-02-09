@@ -1,7 +1,8 @@
 package com.webcrawler.crawler;
 
-import com.webcrawler.crawler.parse.Parse;
-import com.webcrawler.crawler.parse.ParseWebPage;
+import com.webcrawler.crawler.model.WebPage;
+import com.webcrawler.crawler.persistance.Resource;
+import com.webcrawler.crawler.persistance.WebResource;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -20,27 +21,8 @@ import static org.mockito.Mockito.when;
 
 public class WebPageTest {
 
-    @Test
-    public void testFindAllLinks() throws IOException {
-        String url1 = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
-        Parse parse = Mockito.mock(ParseWebPage.class);
-        List<WebPage> pages = new ArrayList<WebPage>(1);
-        pages.add(new WebPage("www.abc.com"));
-        when(parse.getUrls(url1)).thenReturn(pages);
-        WebPage page1 = new WebPage(url1);
-        page1.setParse(parse);
-        Assert.assertEquals(pages,page1.findChildLinks());
-        verify(parse).getUrls(ArgumentMatchers.eq(url1));
-    }
-    @Test(expected  = IOException.class)
-    public void testFindAllLinksException() throws IOException {
-        String url1 = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
-        Parse parse = Mockito.mock(ParseWebPage.class);
-        when(parse.getUrls(url1)).thenThrow(new IOException());
-        WebPage page1 = new WebPage(url1);
-        page1.setParse(parse);
-        page1.findChildLinks();
-    }
+
+
 
     @Test
     public void testEquals(){
@@ -50,11 +32,6 @@ public class WebPageTest {
         WebPage page2 = new WebPage((url1));
         Assert.assertTrue(page2.equals(page1));
         String url2 = "www.google.com";
-        WebPage page3 = new WebPage(url2);
-        Assert.assertFalse(page3.equals(page2));
-        ParseWebPage parseWebPage = new ParseWebPage();
-        Assert.assertFalse(page3.equals(parseWebPage));
-        Assert.assertFalse(page3.equals(null));
 
     }
 
