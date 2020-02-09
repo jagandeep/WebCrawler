@@ -26,10 +26,9 @@ public class TraversalService {
         Queue<WebPage> pendingWebPages = new LinkedList<>();
         Queue<WebPage> processedWebPages = new LinkedList<>();
         rootPage.setDepth(0);
+        pendingWebPages.add(rootPage);
         processedWebPages.add(rootPage);
-        pendingWebPages.add(rootPage);
         WebPage page = pendingWebPages.poll();
-        pendingWebPages.add(rootPage);
         while(page != null && page.getDepth() < depth){
             for (String p : resource.getUrls(page)) {
                 pendingWebPages.add(new WebPage(p,page.getDepth()+1));
@@ -56,6 +55,8 @@ public class TraversalService {
             details.add(detail);
         }
         example.setDetails(details);
+        example.totalImages();
+        example.totalLinks();
         return example;
     }
 }

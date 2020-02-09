@@ -18,10 +18,23 @@ import lombok.Setter;
 public class Example {
 
     @JsonProperty("total_links")
-    private String totalLinks;
+    private Integer totalLinks;
     @JsonProperty("total_images")
-    private String totalImages;
+    private Integer totalImages;
     @JsonProperty("details")
     private List<Detail> details = null;
 
+    public void totalLinks(){
+        this.totalLinks = 0;
+        for(Detail d : details){
+            this.totalLinks+=1;
+        }
+    }
+
+    public void totalImages(){
+        this.totalImages = 0;
+        for(Detail d : details){
+            this.totalImages+=d.getImageCount();
+        }
+    }
 }
