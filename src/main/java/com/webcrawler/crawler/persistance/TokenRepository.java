@@ -1,9 +1,9 @@
 package com.webcrawler.crawler.persistance;
 
-import com.webcrawler.crawler.model.CrawlResult;
+import com.webcrawler.crawler.model.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CrawlResultRepository extends JpaRepository<CrawlResult,Long> {
+public interface TokenRepository extends JpaRepository<Token,Long> {
 }

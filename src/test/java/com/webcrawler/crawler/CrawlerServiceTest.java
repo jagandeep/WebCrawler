@@ -1,11 +1,7 @@
 package com.webcrawler.crawler;
 
-import com.webcrawler.crawler.model.CrawlerService;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-
-import java.io.IOException;
 
 public class CrawlerServiceTest {
 

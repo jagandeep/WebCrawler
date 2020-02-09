@@ -25,7 +25,7 @@ public class CrawlResult {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @JsonIgnore
-    private Long token;
+    private Long id;
     @JsonProperty("total_links")
     private Integer totalLinks;
     @JsonProperty("total_images")
@@ -33,6 +33,10 @@ public class CrawlResult {
     @JsonProperty("details")
     @OneToMany
     private List<Detail> details = null;
+    @JsonIgnore
+    @OneToOne @Setter @Getter
+    @JoinColumn(name = "tokenId", nullable = false)
+    private Token token;
 
     public void totalLinks(){
         this.totalLinks = 0;

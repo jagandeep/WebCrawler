@@ -1,6 +1,6 @@
 package com.webcrawler.crawler.controller;
 
-import com.webcrawler.crawler.model.CrawlerService;
+import com.webcrawler.crawler.service.CrawlerService;
 import com.webcrawler.crawler.model.WebPage;
 import com.webcrawler.crawler.model.CrawlResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ public class CrawlController {
     private  CrawlerService crawler;
 
     @PostMapping(path="/submit")
-    public CrawlResult crawlWebPage(@RequestBody WebPage page) throws IOException {
-        return crawler.crawl(page);
-
+    public Long makeCrawlRequest(@RequestBody WebPage page) throws IOException {
+        return crawler.submitRequest(page);
     }
 
-    public CrawlResult getCrawlResult(@RequestParam String token){
-        return null;
+    @GetMapping(path="/fetch")
+    public String getCrawlRequestStatus(@RequestParam(name = "id") Long tokenId){
+        return crawler.getResult(tokenId);
     }
 }
