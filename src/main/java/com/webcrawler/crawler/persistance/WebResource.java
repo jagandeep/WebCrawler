@@ -48,15 +48,16 @@ public class WebResource implements Resource {
 
     @Override
     public List<String> getUrls(WebPage webPage) throws IOException {
+        logger.info("getUrls webPage " +webPage);
         Document doc = Jsoup.parse(new URL(webPage.getUrl()).openStream(), "ISO-8859-1", webPage.getUrl());
         Elements links = doc.select("a");
         List<String> webURL = new ArrayList<>(links.size());
         for (Element link : links) {
             String absHref = link.attr("abs:href");
-            logger.info(absHref);
             if(validate.validateUrl(absHref))
                 webURL.add(absHref);
         }
+        logger.info("webURL "+webURL);
         return webURL;
     }
 }

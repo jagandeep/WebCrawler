@@ -18,8 +18,8 @@ public class Token {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long tokenId;
 
-    @OneToOne
-    @JoinColumn(name = "id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private WebPage webPage;
     private String status;
 }

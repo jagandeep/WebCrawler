@@ -24,14 +24,14 @@ import java.util.*;
 @EnableScheduling
 public class ScheduleService {
     private final Logger logger = LoggerFactory.getLogger(ScheduleService.class);
-    private final TraversalService service;
+    private final TokenRepository tokenRepository;
     private final CrawlResultRepository repository;
     private final Resource resource;
     private final WebPageRepository webPageRepository;
     @Autowired
-    public ScheduleService(TraversalService service, CrawlResultRepository repository, Resource resource,
+    public ScheduleService(TokenRepository tokenRepository, CrawlResultRepository repository, Resource resource,
                            WebPageRepository webPageRepository) {
-        this.service = service;
+        this.tokenRepository = tokenRepository;
         this.repository = repository;
         this.resource = resource;
         this.webPageRepository= webPageRepository;
@@ -40,21 +40,27 @@ public class ScheduleService {
     @Async
     @Scheduled(initialDelay = 1000, fixedRate = 10000)
     public void processRequest()  {
-        // lets read from the database
-        WebPage page = service.getRequest();
+        logger.info("Invoked processRequest");
+        List<Token> tokens = tokenRepository.findAll();
+        if(tokens.isEmpty()) return;
+        WebPage page = null;
         Queue<WebPage> pages = null;
-        page.getToken().setStatus(Token.INPROCESS);
-        try {
-            pages = traverse(page,page.getDepth());
-        } catch (IOException e) {
-            page.getToken().setStatus(Token.FAILED);
-            e.printStackTrace();
+        for(Token token: tokens){
+            if(token.getStatus() == Token.SUBMITTED  ){
+                page = token.getWebPage();
+                token.setStatus(Token.INPROCESS);
+                try {
+                     pages = traverse(page,page.getDepth());
+                } catch (IOException e) {
+                    token.setStatus(Token.FAILED);
+                    e.printStackTrace();
+                }
+                CrawlResult result = transformPage(pages);
+                result.setToken(token);
+                token.setStatus(Token.PROCESSED);
+                repository.saveAndFlush(result);
+            }
         }
-        CrawlResult result = transformPage(pages);
-        Optional<WebPage>  webPage = webPageRepository.findById(page.getId());
-        result.setToken(webPage.get().getToken());
-        page.getToken().setStatus(Token.PROCESSED);
-        repository.save(result);
     }
 
     private Queue<WebPage> traverse(WebPage rootPage, Integer depth) throws IOException {

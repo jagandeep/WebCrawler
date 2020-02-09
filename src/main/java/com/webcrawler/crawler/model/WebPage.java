@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @ToString
 @Entity
-public class WebPage implements java.io.Serializable{
+public class WebPage {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Getter @Setter
@@ -18,8 +18,9 @@ public class WebPage implements java.io.Serializable{
     private String url;
     @Setter @Getter
     private Integer depth;
-    @OneToOne @Getter @Setter
-    @JoinColumn(name = "id", nullable = false)
+     @Getter @Setter
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Token token;
 
     public WebPage(){}

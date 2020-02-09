@@ -13,17 +13,16 @@ import java.util.Optional;
 @Service
 public class CrawlerService {
     private final Logger logger = LoggerFactory.getLogger(CrawlerService.class);
-    private final TraversalService service;
     private final TokenRepository tokenRepository;
 
     @Autowired
-    public CrawlerService(TraversalService service, TokenRepository tokenRepository ){
-        this.service = service;
+    public CrawlerService( TokenRepository tokenRepository ){
         this.tokenRepository =  tokenRepository;
     }
 
     public Long submitRequest(WebPage page){
-        Token token = service.submitRequest(page);
+        Token token = new Token();
+        token.setStatus(Token.SUBMITTED);
         token.setWebPage(page);
         tokenRepository.save(token);
         tokenRepository.flush();
