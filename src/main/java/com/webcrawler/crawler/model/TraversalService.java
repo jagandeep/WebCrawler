@@ -40,10 +40,10 @@ public class TraversalService {
     }
 
 
-    public Example transformPage(Queue<WebPage> pages)  {
+    public CrawlResult transformPage(Queue<WebPage> pages)  {
         if(logger.isInfoEnabled())
             logger.info(String.valueOf(pages));
-        Example example = new Example();
+        CrawlResult crawlResult = new CrawlResult();
         List<Detail> details = new ArrayList<>();
         Detail detail = null;
         for(WebPage p : pages){
@@ -54,9 +54,9 @@ public class TraversalService {
             }
             details.add(detail);
         }
-        example.setDetails(details);
-        example.totalImages();
-        example.totalLinks();
-        return example;
+        crawlResult.setDetails(details);
+        crawlResult.totalImages();
+        crawlResult.totalLinks();
+        return crawlResult;
     }
 }
