@@ -32,14 +32,14 @@ public class WebResource implements Resource {
 
     @Override
     public String getTitle(WebPage webPage) throws IOException {
-        Document doc = Jsoup.parse(new URL(webPage.getUrl()).openStream(), CHARSET_NAME, webPage.getUrl());
+        Document doc = Jsoup.parse(new URL(webPage.getUrl()).openStream(), WebResource.CHARSET_NAME, webPage.getUrl());
         return doc.title();
     }
 
 
     @Override
     public Integer getImageCount(WebPage webPage) throws IOException {
-        Document doc = Jsoup.parse(new URL(webPage.getUrl()).openStream(), "ISO-8859-1", webPage.getUrl());
+        Document doc = Jsoup.parse(new URL(webPage.getUrl()).openStream(), WebResource.CHARSET_NAME, webPage.getUrl());
         Elements images =
                 doc.select(IMAGETYPE );
         return images.size();
@@ -49,7 +49,7 @@ public class WebResource implements Resource {
     @Override
     public List<String> getUrls(WebPage webPage) throws IOException {
         logger.info("getUrls webPage " +webPage);
-        Document doc = Jsoup.parse(new URL(webPage.getUrl()).openStream(), "ISO-8859-1", webPage.getUrl());
+        Document doc = Jsoup.parse(new URL(webPage.getUrl()).openStream(),WebResource.CHARSET_NAME, webPage.getUrl());
         Elements links = doc.select("a");
         List<String> webURL = new ArrayList<>(links.size());
         for (Element link : links) {

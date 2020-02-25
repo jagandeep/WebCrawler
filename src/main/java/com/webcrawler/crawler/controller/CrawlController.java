@@ -1,8 +1,7 @@
 package com.webcrawler.crawler.controller;
 
-import com.webcrawler.crawler.service.CrawlerService;
+import com.webcrawler.crawler.service.TokenService;
 import com.webcrawler.crawler.model.WebPage;
-import com.webcrawler.crawler.model.CrawlResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +10,7 @@ import java.io.IOException;
 @RestController
 public class CrawlController {
     @Autowired
-    private  CrawlerService crawler;
+    private TokenService crawler;
 
     @PostMapping(path="/submit")
     public Long makeCrawlRequest(@RequestBody WebPage page) throws IOException {

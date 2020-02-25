@@ -3,7 +3,7 @@ package com.webcrawler.crawler;
 import org.junit.After;
 import org.junit.Before;
 
-public class CrawlerServiceTest {
+public class TokenServiceTest {
 
     @Before
     public void setUp() throws Exception {

@@ -1,6 +1,5 @@
 package com.webcrawler.crawler.service;
 
-import com.webcrawler.crawler.model.CrawlResult;
 import com.webcrawler.crawler.model.Token;
 import com.webcrawler.crawler.model.WebPage;
 import com.webcrawler.crawler.persistance.TokenRepository;
@@ -11,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CrawlerService {
-    private final Logger logger = LoggerFactory.getLogger(CrawlerService.class);
+public class TokenService {
+    private final Logger logger = LoggerFactory.getLogger(TokenService.class);
     private final TokenRepository tokenRepository;
 
     @Autowired
-    public CrawlerService( TokenRepository tokenRepository ){
+    public TokenService(TokenRepository tokenRepository ){
         this.tokenRepository =  tokenRepository;
     }
 
