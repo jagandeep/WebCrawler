@@ -55,8 +55,8 @@ public class ScheduleService {
         Queue<WebPage> pages;
         if(isSubmitted(webPage)){
             webPage.setStatus(WebPage.INPROCESS);
-            pages = this.traversalService.traverseWebPage(webPage);
-            CrawlResult result = this.transformationService.transformWebPage(pages);
+            pages = traversalService.traverseWebPage(webPage);
+            CrawlResult result = transformationService.transformWebPage(pages);
             webPage.setStatus(WebPage.PROCESSED);
             repository.saveAndFlush(result);
         }

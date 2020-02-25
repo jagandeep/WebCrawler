@@ -13,6 +13,7 @@ import java.util.Queue;
 
 @Service
 public class TraversalService {
+    private final Logger logger = LoggerFactory.getLogger(TraversalService.class);
     private final Resource resource;
 
     @Autowired
