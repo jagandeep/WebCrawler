@@ -33,10 +33,6 @@ public class CrawlResult {
     @JsonProperty("details")
     @OneToMany
     private List<Detail> details = null;
-    @JsonIgnore
-    @OneToOne @Setter @Getter
-    @JoinColumn(name = "tokenId", nullable = false)
-    private Token token;
 
     public void totalLinks(){
         this.totalLinks = 0;

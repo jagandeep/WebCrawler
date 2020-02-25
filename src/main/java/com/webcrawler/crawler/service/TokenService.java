@@ -1,36 +1,31 @@
 package com.webcrawler.crawler.service;
 
-import com.webcrawler.crawler.model.Token;
 import com.webcrawler.crawler.model.WebPage;
-import com.webcrawler.crawler.persistance.TokenRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.webcrawler.crawler.persistance.WebPageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
 public class TokenService {
-    private final Logger logger = LoggerFactory.getLogger(TokenService.class);
-    private final TokenRepository tokenRepository;
+
+    private final WebPageRepository webPageRepository;
 
     @Autowired
-    public TokenService(TokenRepository tokenRepository ){
-        this.tokenRepository =  tokenRepository;
+    public TokenService(WebPageRepository webPageRepository ){
+        this.webPageRepository =  webPageRepository;
     }
 
     public Long submitRequest(WebPage page){
-        Token token = new Token();
-        token.setStatus(Token.SUBMITTED);
-        token.setWebPage(page);
-        tokenRepository.save(token);
-        tokenRepository.flush();
-        return token.getTokenId();
+        page.setStatus(WebPage.SUBMITTED);
+        webPageRepository.save(page);
+        webPageRepository.flush();
+        return page.getId();
     }
 
     public String getResult(Long tokenId)  {
-        Optional<Token> token = tokenRepository.findById(tokenId);
-        return token.get().getStatus();
+        Optional<WebPage> webPage = webPageRepository.findById(tokenId);
+        return webPage.get().getStatus();
     }
 }
 

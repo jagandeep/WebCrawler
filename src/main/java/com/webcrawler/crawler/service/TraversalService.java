@@ -1,6 +1,5 @@
 package com.webcrawler.crawler.service;
 
-import com.webcrawler.crawler.model.Token;
 import com.webcrawler.crawler.model.WebPage;
 import com.webcrawler.crawler.persistance.Resource;
 import org.slf4j.Logger;
@@ -14,7 +13,6 @@ import java.util.Queue;
 
 @Service
 public class TraversalService {
-    private final Logger logger = LoggerFactory.getLogger(TransformationService.class);
     private final Resource resource;
 
     @Autowired
@@ -22,13 +20,14 @@ public class TraversalService {
         this.resource = resource;
     }
 
-    public Queue<WebPage> traverseWebPage(WebPage page, Token token) {
+    public Queue<WebPage> traverseWebPage(WebPage page) {
         Queue<WebPage>  pages = null;
         try {
             pages = traverse(page,page.getDepth());
         } catch (IOException e) {
-            token.setStatus(Token.FAILED);
-            e.printStackTrace();
+            page.setStatus(WebPage.FAILED);
+            logger.error("Error traversing the WebPage" , e.getMessage());
+
         }
         return pages;
     }

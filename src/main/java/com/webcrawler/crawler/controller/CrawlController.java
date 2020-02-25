@@ -5,7 +5,6 @@ import com.webcrawler.crawler.model.WebPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 
 @RestController
 public class CrawlController {
@@ -13,7 +12,7 @@ public class CrawlController {
     private TokenService crawler;
 
     @PostMapping(path="/submit")
-    public Long makeCrawlRequest(@RequestBody WebPage page) throws IOException {
+    public Long makeCrawlRequest(@RequestBody WebPage page)  {
         return crawler.submitRequest(page);
     }
 

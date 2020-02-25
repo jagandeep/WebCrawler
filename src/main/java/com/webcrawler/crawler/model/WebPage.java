@@ -1,5 +1,6 @@
 package com.webcrawler.crawler.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,7 +10,13 @@ import javax.persistence.*;
 
 @ToString
 @Entity
+@EqualsAndHashCode
 public class WebPage {
+    public  static  final String SUBMITTED ="Submitted";
+    public  static  final String INPROCESS ="In-Process";
+    public  static  final String PROCESSED  ="Processed ";
+    public  static  final String FAILED  ="Failed ";
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Getter @Setter
@@ -18,10 +25,9 @@ public class WebPage {
     private String url;
     @Setter @Getter
     private Integer depth;
-     @Getter @Setter
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    private Token token;
+    @Setter @Getter
+    private String status;
+
 
     public WebPage(){}
     public  WebPage(String url){
